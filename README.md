@@ -37,3 +37,9 @@ Cada microservicio tiene su propio conjunto de endpoints y se comunican entre s�
 ## 🎓 Créditos
 
 Este proyecto ha sido desarrollado como parte de las prácticas propuestas por el canal de YouTube **[La Tecnología Avanza](https://www.youtube.com/@latecnologiaavanza)**, donde se exploran conceptos fundamentales y avanzados de microservicios con Spring Boot.
+
+---
+
+<p align="center">
+  <img src="https://img.icons8.com/clouds/100/000000/github.png" alt="GitHub"/>
+</p>

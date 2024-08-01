@@ -17,7 +17,8 @@ Estos servicios permiten realizar operaciones CRUD (Crear, Leer, Actualizar, Eli
 - **☕ Spring Boot**
 - **🌩️ Spring Cloud OpenFeign**
 - **🔄 Spring RestTemplate**
-- **🗄️ H2 Database (opcional)** para persistencia de datos
+- **🗄️ H2 Database** para persistencia de datos 
+- **🌩️ Eureka Server** para descubrimiento de servicios
 - **📦 Maven** para la gestión de dependencias
 - **💻 IntelliJ IDEA** como entorno de desarrollo integrado (IDE)
 

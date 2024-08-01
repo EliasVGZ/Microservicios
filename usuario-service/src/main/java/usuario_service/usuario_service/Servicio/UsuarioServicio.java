@@ -11,9 +11,7 @@ import usuario_service.usuario_service.modelos.Carro;
 import usuario_service.usuario_service.modelos.Motos;
 import usuario_service.usuario_service.repositorio.UsuarioRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UsuarioServicio {
@@ -51,7 +49,7 @@ public class UsuarioServicio {
     //Creacion de un metodo para guardar un carro, usando fiegnclient
     public Carro saveCarro(int usuarioId, Carro carro){
         carro.setUsuarioId(usuarioId);//se le asigna el usuarioId al carro
-        return carroFeignClient.save(carro);
+        return carroFeignClient.saveCoche(carro);
     }
 
     //Creacion de un metodo para guardar una moto, usando fiegnclient
@@ -63,39 +61,49 @@ public class UsuarioServicio {
 
     public Map<String, Object> getUsuarioAndVehiculos(int usuarioId) {
 
-        Map<String, Object> resultado = new HashMap<>();
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
+        Map<String, Object> resultado = new LinkedHashMap<>(); // Usar LinkedHashMap para mantener el orden
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null); // Buscar el usuario por id
 
         if (usuario == null) {
             resultado.put("mensaje", "Usuario no encontrado");
             return resultado;
         }
+
         resultado.put("usuario", usuario);
 
         try {
             List<Carro> carros = carroFeignClient.getCarros(usuarioId);
             if (carros.isEmpty()) {
-                resultado.put("mensaje", "El usuario no tiene carros");
+                resultado.put("carros", new ArrayList<>()); // Agregar una lista vacía si no hay carros
             } else {
                 resultado.put("carros", carros);
             }
         } catch (FeignException e) {
-            resultado.put("mensaje", "Error al obtener carros: " + e.getMessage());
+            if (e.status() == 404) {
+                resultado.put("carros", new ArrayList<>()); // Manejar 404 como lista vacía
+            } else {
+                resultado.put("mensaje", "Error al obtener carros: " + e.getMessage());
+            }
         }
 
         try {
             List<Motos> motos = motoFeignClient.getMotos(usuarioId);
             if (motos.isEmpty()) {
-                resultado.put("mensaje", "El usuario no tiene motos");
+                resultado.put("motos", new ArrayList<>()); // Agregar una lista vacía si no hay motos
             } else {
                 resultado.put("motos", motos);
             }
         } catch (FeignException e) {
-            resultado.put("mensaje", "Error al obtener motos: " + e.getMessage());
+            if (e.status() == 404) {
+                resultado.put("motos", new ArrayList<>()); // Manejar 404 como lista vacía
+            } else {
+                resultado.put("mensaje", "Error al obtener motos: " + e.getMessage());
+            }
         }
 
         return resultado;
     }
+
 
 
 

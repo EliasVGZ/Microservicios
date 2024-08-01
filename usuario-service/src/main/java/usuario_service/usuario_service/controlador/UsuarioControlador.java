@@ -81,14 +81,14 @@ public class UsuarioControlador {
 
     //TODO CONEXION DE MICROSERVICIOS USANDO FEIGNCLIENT
     //Crear un carro usando feignclient
-    @PostMapping("carro/{usuarioId}")
+    @PostMapping("/carro/{usuarioId}")
     public ResponseEntity<Carro> guardarCarro(@PathVariable ("usuarioId") int usuarioId, @RequestBody Carro carro){
         Carro nuevoCarro = usuarioServicio.saveCarro(usuarioId, carro);
         return ResponseEntity.ok(nuevoCarro);
     }
 
     //Crear una moto usando feignclient
-    @PostMapping("moto/{usuarioId}")
+    @PostMapping("/moto/{usuarioId}")
     public ResponseEntity<Motos> guardarMoto(@PathVariable ("usuarioId") int usuarioId, @RequestBody Motos moto){
         Motos nuevaMoto = usuarioServicio.saveMoto(usuarioId, moto);
         return ResponseEntity.ok(nuevaMoto);

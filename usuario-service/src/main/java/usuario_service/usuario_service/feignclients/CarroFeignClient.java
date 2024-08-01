@@ -9,12 +9,11 @@ import java.util.List;
 
 @FeignClient(name = "carro-service",url = "http://localhost:8082")
 
-//@RequestMapping("/carro")
 public interface CarroFeignClient {
 
 
     @PostMapping("/carro")
-    public Carro save(@RequestBody Carro carro);
+    public Carro saveCoche(@RequestBody Carro carro);
 
 
     @GetMapping("/carro/usuario/{usuarioId}")
